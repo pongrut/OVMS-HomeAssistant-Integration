@@ -1,0 +1,13 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+mobile_app:
+ios:
+logbook:
+
+## Include extermal files
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensor.yaml
+mqtt: !include mqtt.yaml

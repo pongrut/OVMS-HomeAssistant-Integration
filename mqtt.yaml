@@ -1,0 +1,9 @@
+### mqtt.yaml
+## MQTT servers
+
+## Mosquitto broker
+broker: 127.0.0.1
+port: 1883
+client_id: homeassistant
+username: !secret pi_mqtt_user
+password: !secret pi_mqtt_password

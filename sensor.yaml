@@ -1,0 +1,224 @@
+### sensor.yaml
+# OVMS MQTT metrics
+- platform: mqtt
+  name: "OVMS State of charge"
+  state_topic: "ovms/pongrut/MG-EP/metric/xmg/v/soc/raw"
+  unit_of_measurement: "%"
+- platform: mqtt
+  name: "OVMS Calculated state of charge mqtt"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/soc"
+  unit_of_measurement: "%"
+- platform: mqtt
+  name: "OVMS State of health"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/soh"
+  unit_of_measurement: "%"
+- platform: mqtt
+  name: "OVMS 12V Battery"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/12v/voltage"
+  unit_of_measurement: "V"
+- platform: template
+  sensors:
+    ovms_12v_batter_soc:
+      friendly_name: "OVMS Calculated SoC 12v battery"
+      # Linear Interpolation x is voltage, y is battery level
+      # y = y1 + (x-x1)*(y2-y1)/(x2-x1)
+      value_template: >-
+        {% set SLOPE = ((100-0)/(13.0-10.5)| float)%}
+        {% set X = (states('sensor.ovms_12v_battery') | float) %}
+        {% set Y = (0 + (X-10.5) * SLOPE) | round(1) %}
+        {% if Y <= 100 %}
+          {{ Y }}
+        {% else %}
+          {{ 100 }}
+        {% endif %}
+      unit_of_measurement: "%"
+- platform: mqtt
+  name: "OVMS Estimated range"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/range/est"
+  unit_of_measurement: "km"
+- platform: mqtt
+  name: "OVMS Ideal range"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/range/ideal"
+  unit_of_measurement: "km"
+- platform: mqtt
+  name: "OVMS Tire pressures"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/t/pressure"
+  unit_of_measurement: "kPa"
+# Currently charging inprogress
+- platform: mqtt
+  name: "OVMS Charging inprogress"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/charging"
+# charging, topoff, done, prepare, timerwait, heating, stopped
+- platform: mqtt
+  name: "OVMS Charge state"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/state"
+# undefined, type1, type2, chademo, roadster, teslaus, supercharger, ccs
+- platform: mqtt
+  name: "OVMS Charge type"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/type"
+# Estimated time remaing for full charge [min]
+- platform: mqtt
+  name: "OVMS Charge duration full"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/duration/full"
+  unit_of_measurement: "min"
+# Duration of running charge [sec]
+- platform: mqtt
+  name: "OVMS Charge time"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/time"
+  unit_of_measurement: "sec"
+# Maximum charger output current [A]
+- platform: mqtt
+  name: "OVMS Maximum charge limit"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/climit"
+  unit_of_measurement: "A"
+# Momentary charger output current [A]
+- platform: mqtt
+  name: "OVMS Charge current"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/current"
+  unit_of_measurement: "A"
+# Energy sum for running charge [kWh]
+- platform: mqtt
+  name: "OVMS Charged energy mqtt"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/kwh"
+  unit_of_measurement: "kWh"
+- platform: template
+  sensors:
+    ovms_charged_energy:
+      friendly_name: "OVMS Charged energy"
+      value_template: >-
+        {{ (states('sensor.ovms_charged_energy_mqtt') | float)| round(1) }}
+      unit_of_measurement: "kWh"
+# Momentary charger input power [kW]
+- platform: mqtt
+  name: "OVMS Charge power"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/power"
+  unit_of_measurement: "kW"
+# Momentary charger supply voltage [V]
+- platform: mqtt
+  name: "OVMS Charge voltage"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/c/voltage"
+  unit_of_measurement: "V"
+# Main battery momentary voltage [V]
+- platform: mqtt
+  name: "OVMS Battery voltage"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/voltage"
+  unit_of_measurement: "V"
+# Main battery momentary current [A] (output=positive)
+- platform: mqtt
+  name: "OVMS Battery current"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/current"
+  unit_of_measurement: "A"
+# Main battery momentary power [kW] (output=positive)
+- platform: mqtt
+  name: "OVMS Battery power"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/power"
+  unit_of_measurement: "kW"
+# Battery temperature [°C]
+- platform: mqtt
+  name: "OVMS Battery temp"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/temp"
+  unit_of_measurement: "C"
+# Cell voltage - weakest cell in pack [V]
+- platform: mqtt
+  name: "OVMS Cell min"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/p/voltage/min"
+  unit_of_measurement: "V"
+# Cell voltage - strongest cell in pack [V]
+- platform: mqtt
+  name: "OVMS Cell max"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/b/p/voltage/max"
+  unit_of_measurement: "V"
+# Vehicle locked
+- platform: mqtt
+  name: "OVMS Vehicle locked"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/e/locked"
+# Front left door opened
+- platform: mqtt
+  name: "OVMS FL door opened"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/d/fl"
+# Front right door opened
+- platform: mqtt
+  name: "OVMS FR door opened"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/d/fr"
+# Rear left door opened
+- platform: mqtt
+  name: "OVMS RL door opened"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/d/rl"
+# Rear right door opened
+- platform: mqtt
+  name: "OVMS RR door opened"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/d/rr"
+# Charge port opened
+- platform: mqtt
+  name: "OVMS Charge port opened"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/d/cp"
+# Vehicle is in "ignition" state (drivable)
+- platform: mqtt
+  name: "OVMS Ignition state"
+  state_topic: "ovms/pongrut/MG-EP/metric/xmg/v/ignition/state"
+# GPS locked
+- platform: mqtt
+  name: "OVMS GPS locked"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/p/gpslock"
+# Vehicle latitude
+- platform: mqtt
+  name: "OVMS GPS latitude"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/p/latitude"
+# Vehicle latitude
+- platform: mqtt
+  name: "OVMS GPS longitude"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/p/longitude"
+# Vehicle latitude
+- platform: mqtt
+  name: "OVMS Odometer"
+  state_topic: "ovms/pongrut/MG-EP/metric/v/p/odometer"
+  unit_of_measurement: "km"
+- platform: template
+  sensors:
+    ovms_calculated_soc:
+      friendly_name: "OVMS Calculated state of charge"
+      value_template: >-
+        {{ (states('sensor.ovms_calculated_state_of_charge_mqtt') | float)| round(1) }}
+      unit_of_measurement: "%"
+# Separate tyres and convert kPa to psi
+- platform: template
+  sensors:
+    front_left_tire_pressures:
+      friendly_name: "Front left tire pressures"
+      value_template: >-
+        {{ ((states('sensor.ovms_tire_pressures').split(',')[0] | float) * 0.145038 )| round(1) }}
+      unit_of_measurement: "psi"
+- platform: template
+  sensors:
+    front_right_tire_pressures:
+      friendly_name: "Front right tire pressures"
+      value_template: >-
+        {{ ((states('sensor.ovms_tire_pressures').split(',')[1] | float) * 0.145038 )| round(1) }}
+      unit_of_measurement: "psi"
+- platform: template
+  sensors:
+    rear_left_tire_pressures:
+      friendly_name: "Rear left tire pressures"
+      value_template: >-
+        {{ ((states('sensor.ovms_tire_pressures').split(',')[2] | float) * 0.145038 )| round(1) }}
+      unit_of_measurement: "psi"
+- platform: template
+  sensors:
+    rear_right_tire_pressures:
+      friendly_name: "Rear right tire pressures"
+      value_template: >-
+        {{ ((states('sensor.ovms_tire_pressures').split(',')[3] | float) * 0.145038 )| round(1) }}
+      unit_of_measurement: "psi"
+
+- platform: template
+  sensors:
+    ovms_gps_tracker:
+      friendly_name: "MG EP"
+      value_template: >-
+        {{ states('sensor.ovms_gps_locked')}}
+      attribute_templates:
+        source_type: gps
+        latitude: >-
+          {{ states('sensor.ovms_gps_latitude')}}
+        longitude: >-
+          {{ states('sensor.ovms_gps_longitude')}}
