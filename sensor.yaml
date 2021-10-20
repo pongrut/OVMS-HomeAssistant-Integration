@@ -2,19 +2,19 @@
 # OVMS MQTT metrics
 - platform: mqtt
   name: "OVMS State of charge"
-  state_topic: "ovms/pongrut/MG-EP/metric/xmg/v/soc/raw"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/xmg/v/soc/raw"
   unit_of_measurement: "%"
 - platform: mqtt
   name: "OVMS Calculated state of charge mqtt"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/soc"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/soc"
   unit_of_measurement: "%"
 - platform: mqtt
   name: "OVMS State of health"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/soh"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/soh"
   unit_of_measurement: "%"
 - platform: mqtt
   name: "OVMS 12V Battery"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/12v/voltage"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/12v/voltage"
   unit_of_measurement: "V"
 - platform: template
   sensors:
@@ -34,52 +34,52 @@
       unit_of_measurement: "%"
 - platform: mqtt
   name: "OVMS Estimated range"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/range/est"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/range/est"
   unit_of_measurement: "km"
 - platform: mqtt
   name: "OVMS Ideal range"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/range/ideal"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/range/ideal"
   unit_of_measurement: "km"
 - platform: mqtt
   name: "OVMS Tire pressures"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/t/pressure"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/t/pressure"
   unit_of_measurement: "kPa"
 # Currently charging inprogress
 - platform: mqtt
   name: "OVMS Charging inprogress"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/charging"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/charging"
 # charging, topoff, done, prepare, timerwait, heating, stopped
 - platform: mqtt
   name: "OVMS Charge state"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/state"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/state"
 # undefined, type1, type2, chademo, roadster, teslaus, supercharger, ccs
 - platform: mqtt
   name: "OVMS Charge type"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/type"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/type"
 # Estimated time remaing for full charge [min]
 - platform: mqtt
   name: "OVMS Charge duration full"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/duration/full"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/duration/full"
   unit_of_measurement: "min"
 # Duration of running charge [sec]
 - platform: mqtt
   name: "OVMS Charge time"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/time"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/time"
   unit_of_measurement: "sec"
 # Maximum charger output current [A]
 - platform: mqtt
   name: "OVMS Maximum charge limit"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/climit"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/climit"
   unit_of_measurement: "A"
 # Momentary charger output current [A]
 - platform: mqtt
   name: "OVMS Charge current"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/current"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/current"
   unit_of_measurement: "A"
 # Energy sum for running charge [kWh]
 - platform: mqtt
   name: "OVMS Charged energy mqtt"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/kwh"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/kwh"
   unit_of_measurement: "kWh"
 - platform: template
   sensors:
@@ -91,87 +91,87 @@
 # Momentary charger input power [kW]
 - platform: mqtt
   name: "OVMS Charge power"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/power"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/power"
   unit_of_measurement: "kW"
 # Momentary charger supply voltage [V]
 - platform: mqtt
   name: "OVMS Charge voltage"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/c/voltage"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/c/voltage"
   unit_of_measurement: "V"
 # Main battery momentary voltage [V]
 - platform: mqtt
   name: "OVMS Battery voltage"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/voltage"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/voltage"
   unit_of_measurement: "V"
 # Main battery momentary current [A] (output=positive)
 - platform: mqtt
   name: "OVMS Battery current"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/current"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/current"
   unit_of_measurement: "A"
 # Main battery momentary power [kW] (output=positive)
 - platform: mqtt
   name: "OVMS Battery power"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/power"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/power"
   unit_of_measurement: "kW"
 # Battery temperature [°C]
 - platform: mqtt
   name: "OVMS Battery temp"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/temp"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/temp"
   unit_of_measurement: "C"
 # Cell voltage - weakest cell in pack [V]
 - platform: mqtt
   name: "OVMS Cell min"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/p/voltage/min"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/p/voltage/min"
   unit_of_measurement: "V"
 # Cell voltage - strongest cell in pack [V]
 - platform: mqtt
   name: "OVMS Cell max"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/b/p/voltage/max"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/b/p/voltage/max"
   unit_of_measurement: "V"
 # Vehicle locked
 - platform: mqtt
   name: "OVMS Vehicle locked"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/e/locked"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/e/locked"
 # Front left door opened
 - platform: mqtt
   name: "OVMS FL door opened"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/d/fl"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/d/fl"
 # Front right door opened
 - platform: mqtt
   name: "OVMS FR door opened"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/d/fr"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/d/fr"
 # Rear left door opened
 - platform: mqtt
   name: "OVMS RL door opened"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/d/rl"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/d/rl"
 # Rear right door opened
 - platform: mqtt
   name: "OVMS RR door opened"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/d/rr"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/d/rr"
 # Charge port opened
 - platform: mqtt
   name: "OVMS Charge port opened"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/d/cp"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/d/cp"
 # Vehicle is in "ignition" state (drivable)
 - platform: mqtt
   name: "OVMS Ignition state"
-  state_topic: "ovms/pongrut/MG-EP/metric/xmg/v/ignition/state"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/xmg/v/ignition/state"
 # GPS locked
 - platform: mqtt
   name: "OVMS GPS locked"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/p/gpslock"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/p/gpslock"
 # Vehicle latitude
 - platform: mqtt
   name: "OVMS GPS latitude"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/p/latitude"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/p/latitude"
 # Vehicle latitude
 - platform: mqtt
   name: "OVMS GPS longitude"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/p/longitude"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/p/longitude"
 # Vehicle latitude
 - platform: mqtt
   name: "OVMS Odometer"
-  state_topic: "ovms/pongrut/MG-EP/metric/v/p/odometer"
+  state_topic: "ovms/<OVMS-USER>/<VEHICLE-ID>/metric/v/p/odometer"
   unit_of_measurement: "km"
 - platform: template
   sensors:
